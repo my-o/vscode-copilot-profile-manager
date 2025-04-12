@@ -1,0 +1,9 @@
+{
+  "copilot-profile-manager.category": "GitHub Copilot Profile Manager",
+  "copilot-profile-manager.create.title": "プロファイルを作成",
+  "copilot-profile-manager.edit.title": "プロファイルを編集",
+  "copilot-profile-manager.delete.title": "プロファイルを削除",
+  "copilot-profile-manager.apply.title": "プロファイルを適用",
+  "copilot-profile-manager.configuration.title": "GitHub Copilot Profile Manager",
+  "copilot-profile-manager.configuration.logLevel.description": "ログの出力レベルを設定します。"
+}

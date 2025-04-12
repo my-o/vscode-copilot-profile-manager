@@ -1,0 +1,9 @@
+{
+  "copilot-profile-manager.category": "GitHub Copilot Profile Manager",
+  "copilot-profile-manager.create.title": "Create Profile",
+  "copilot-profile-manager.edit.title": "Edit Profile",
+  "copilot-profile-manager.delete.title": "Delete Profile",
+  "copilot-profile-manager.apply.title": "Apply Profile",
+  "copilot-profile-manager.configuration.title": "GitHub Copilot Profile Manager",
+  "copilot-profile-manager.configuration.logLevel.description": "The logging level"
+}

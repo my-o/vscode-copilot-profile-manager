@@ -1,25 +1,80 @@
 {
   "name": "copilot-profile-manager",
-  "displayName": "copilot-profile-manager",
-  "description": "",
-  "version": "0.0.1",
+  "displayName": "GitHub Copilot Profile Manager",
+  "description": "Easily create, manage, and switch between GitHub Copilot profiles for different coding tasks and purposes",
+  "version": "0.1.0",
+  "publisher": "my-o",
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.99.0"
   },
   "categories": [
-    "Other"
+    "AI",
+    "Chat",
+    "Machine Learning"
   ],
+  "keywords": [
+    "github",
+    "copilot",
+    "instructions",
+    "profile",
+    "manager",
+    "ai",
+    "productivity"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/my-o/vscode-copilot-profile-manager"
+  },
+  "homepage": "https://github.com/my-o/vscode-copilot-profile-manager",
+  "bugs": {
+    "url": "https://github.com/my-o/vscode-copilot-profile-manager/issues"
+  },
   "activationEvents": [
     "onStartupFinished"
   ],
   "main": "./dist/extension.js",
+  "l10n": "./l10n",
   "contributes": {
     "commands": [
       {
-        "command": "copilot-profile-manager.helloWorld",
-        "title": "Hello World"
+        "command": "copilot-profile-manager.create",
+        "title": "%copilot-profile-manager.create.title%",
+        "category": "%copilot-profile-manager.category%"
+      },
+      {
+        "command": "copilot-profile-manager.edit",
+        "title": "%copilot-profile-manager.edit.title%",
+        "category": "%copilot-profile-manager.category%"
+      },
+      {
+        "command": "copilot-profile-manager.delete",
+        "title": "%copilot-profile-manager.delete.title%",
+        "category": "%copilot-profile-manager.category%"
+      },
+      {
+        "command": "copilot-profile-manager.apply",
+        "title": "%copilot-profile-manager.apply.title%",
+        "category": "%copilot-profile-manager.category%"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "%copilot-profile-manager.configuration.title%",
+      "properties": {
+        "copilot-profile-manager.logLevel": {
+          "type": "string",
+          "default": "info",
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
+          "description": "%copilot-profile-manager.configuration.logLevel.description%",
+          "scope": "window"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -34,20 +89,28 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "xvfb-run -a vscode-test",
+    "l10n": "npx @vscode/l10n-dev export -o ./l10n ./src"
   },
   "devDependencies": {
     "@types/mocha": "10.0.10",
     "@types/node": "20.17.30",
+    "@types/sinon": "17.0.4",
     "@types/vscode": "1.99.1",
     "@typescript-eslint/eslint-plugin": "8.29.1",
     "@typescript-eslint/parser": "8.29.1",
+    "@vscode/l10n-dev": "0.0.35",
     "@vscode/test-cli": "0.0.10",
     "@vscode/test-electron": "2.5.2",
     "@vscode/vsce": "3.3.2",
     "esbuild": "0.25.2",
     "eslint": "9.24.0",
     "npm-run-all": "4.1.5",
+    "sinon": "20.0.0",
     "typescript": "5.8.3"
+  },
+  "dependencies": {
+    "@vscode/l10n": "0.0.18",
+    "uuid": "11.1.0"
   }
 }

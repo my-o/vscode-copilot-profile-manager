@@ -1,26 +1,48 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { registerCommands } from './commands';
+import { CommandIds } from './constants/commandIds';
+import { ProfileService } from './services/profileService';
+import { Logger } from './utils/logger';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+export let profileService: ProfileService;
+export let logger: Logger;
+
 export function activate(context: vscode.ExtensionContext) {
+  try {
+    initializeLogger(context);
+    logger.info('GitHub Copilot Profile Manager has started');
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "copilot-profile-manager" is now active!');
+    profileService = new ProfileService(context);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('copilot-profile-manager.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from copilot-profile-manager!');
-	});
+    registerCommands(context);
+    createStatusBarItem(context);
 
-	context.subscriptions.push(disposable);
+    logger.info('Extension initialization completed');
+  } catch (error) {
+    console.error('Extension activation failed:', error);
+    if (logger) {
+      logger.error('An error occurred during extension initialization', error);
+    }
+  }
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  logger.info('Shutting down GitHub Copilot Profile Manager');
+}
+
+function initializeLogger(context: vscode.ExtensionContext): void {
+  const outputChannel = vscode.window.createOutputChannel('GitHub Copilot Profile Manager');
+  context.subscriptions.push(outputChannel);
+
+  logger = new Logger(outputChannel);
+}
+
+function createStatusBarItem(context: vscode.ExtensionContext): void {
+  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+  statusBarItem.text = '$(copilot)✨';
+  statusBarItem.tooltip = 'GitHub Copilot Profile Manager';
+  statusBarItem.command = CommandIds.PROFILE_MENU;
+  statusBarItem.show();
+
+  context.subscriptions.push(statusBarItem);
+}
